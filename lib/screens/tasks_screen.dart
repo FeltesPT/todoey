@@ -1,15 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:todoey_flutter/widgets/task_list.dart';
+
+import 'package:todoey_flutter/models/task.dart';
 
 class TasksScreen extends StatelessWidget {
-  const TasksScreen({Key key}) : super(key: key);
+  final List<Task> tasks = [];
 
   @override
   Widget build(BuildContext context) {
+    tasks.add(Task(text: "123", done: true));
+    tasks.add(Task(text: "456"));
+    tasks.add(Task(text: "789", done: true));
+
     return Scaffold(
       backgroundColor: Colors.lightBlueAccent,
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.lightBlueAccent,
         child: Icon(Icons.add),
+        onPressed: () {
+          print('FAB pressed');
+        },
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -56,6 +66,7 @@ class TasksScreen extends StatelessWidget {
           ),
           Expanded(
             child: Container(
+              padding: EdgeInsets.only(left: 15.0),
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.only(
@@ -63,8 +74,11 @@ class TasksScreen extends StatelessWidget {
                   topRight: Radius.circular(30.0),
                 ),
               ),
+              child: TaskList(
+                tasks: tasks,
+              ),
             ),
-          )
+          ),
         ],
       ),
     );
