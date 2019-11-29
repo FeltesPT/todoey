@@ -1,6 +1,6 @@
 class Task {
-  Task({this.text, this.done = false});
+  Task({this.text, this.isDone = false});
 
   final String text;
-  final bool done;
+  bool isDone;
 }
