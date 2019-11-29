@@ -2,7 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:todoey_flutter/widgets/task_list.dart';
 import 'add_task_screen.dart';
 
-class TasksScreen extends StatelessWidget {
+import 'package:todoey_flutter/models/task.dart';
+
+class TasksScreen extends StatefulWidget {
+  @override
+  _TasksScreenState createState() => _TasksScreenState();
+}
+
+class _TasksScreenState extends State<TasksScreen> {
+  final List<Task> tasks = [
+    Task(text: "123", isDone: true),
+    Task(text: "456"),
+    Task(text: "789", isDone: true),
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -12,7 +25,14 @@ class TasksScreen extends StatelessWidget {
         child: Icon(Icons.add),
         onPressed: () {
           showModalBottomSheet(
-              context: context, builder: (context) => AddTaskScreen());
+              context: context,
+              builder: (context) => AddTaskScreen(
+                    onTaskAdded: (task) {
+                      setState(() {
+                        tasks.add(task);
+                      });
+                    },
+                  ));
         },
       ),
       body: Column(
@@ -68,7 +88,14 @@ class TasksScreen extends StatelessWidget {
                   topRight: Radius.circular(30.0),
                 ),
               ),
-              child: TaskList(),
+              child: TaskList(
+                tasks: tasks,
+                onTaskToggle: (index) {
+                  setState(() {
+                    tasks[index].toggleDone();
+                  });
+                },
+              ),
             ),
           ),
         ],

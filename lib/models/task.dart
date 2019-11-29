@@ -3,4 +3,8 @@ class Task {
 
   final String text;
   bool isDone;
+
+  void toggleDone() {
+    isDone = !isDone;
+  }
 }
