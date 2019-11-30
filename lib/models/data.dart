@@ -9,6 +9,18 @@ class Data extends ChangeNotifier {
     Task(text: "789"),
   ];
 
+  int get taskCount {
+    return tasks.length;
+  }
+
+  int get completedCount {
+    return tasks.where((i) => i.isDone).length;
+  }
+
+  int get notCompletedCount {
+    return tasks.where((i) => !i.isDone).length;
+  }
+
   void addTask(Task newTask) {
     tasks.add(newTask);
     notifyListeners();
@@ -22,15 +34,5 @@ class Data extends ChangeNotifier {
   void toggleTask(int index) {
     tasks[index].toggleDone();
     notifyListeners();
-  }
-
-  int getCompletedCount() {
-    var completed = tasks.where((i) => i.isDone).toList();
-    return completed.length;
-  }
-
-  int getNotCompletedCount() {
-    var notCompleted = tasks.where((i) => !i.isDone).toList();
-    return notCompleted.length;
   }
 }
