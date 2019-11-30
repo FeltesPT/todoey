@@ -67,7 +67,7 @@ class TasksScreen extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      '${data.completedCount}/${data.tasks.length} Completed',
+                      "${data.completedCount}/${data.taskCount} Completed ${data.completedCount == data.taskCount ? "🎉" : ''} ",
                       style: TextStyle(
                         fontSize: 12.0,
                         color: Colors.white,
