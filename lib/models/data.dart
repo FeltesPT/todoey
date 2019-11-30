@@ -9,8 +9,18 @@ class Data extends ChangeNotifier {
     Task(text: "789"),
   ];
 
-  void addTasks(Task newTask) {
+  void addTask(Task newTask) {
     tasks.add(newTask);
+    notifyListeners();
+  }
+
+  void addTaskWith({String title, bool done = false}) {
+    tasks.add(Task(text: title, isDone: done));
+    notifyListeners();
+  }
+
+  void toggleTask(int index) {
+    tasks[index].toggleDone();
     notifyListeners();
   }
 

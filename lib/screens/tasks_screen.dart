@@ -4,8 +4,6 @@ import 'package:todoey_flutter/models/data.dart';
 import 'package:todoey_flutter/widgets/task_list.dart';
 import 'add_task_screen.dart';
 
-import 'package:todoey_flutter/models/task.dart';
-
 class TasksScreen extends StatefulWidget {
   @override
   _TasksScreenState createState() => _TasksScreenState();
@@ -24,10 +22,7 @@ class _TasksScreenState extends State<TasksScreen> {
               context: context,
               builder: (context) => AddTaskScreen(
                     onTaskAdded: (taskTitle) {
-                      setState(() {
-                        Provider.of<Data>(context)
-                            .addTasks(Task(text: taskTitle));
-                      });
+                      Provider.of<Data>(context).addTaskWith(title: taskTitle);
                       Navigator.pop(context);
                     },
                   ));
@@ -95,9 +90,7 @@ class _TasksScreenState extends State<TasksScreen> {
               ),
               child: TaskList(
                 onTaskToggle: (index) {
-                  setState(() {
-                    Provider.of<Data>(context).tasks[index].toggleDone();
-                  });
+                  Provider.of<Data>(context).toggleTask(index);
                 },
               ),
             ),
