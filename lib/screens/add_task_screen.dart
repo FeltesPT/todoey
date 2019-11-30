@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:todoey_flutter/models/task.dart';
 
 class AddTaskScreen extends StatelessWidget {
   AddTaskScreen({@required this.onTaskAdded});
@@ -42,9 +41,7 @@ class AddTaskScreen extends StatelessWidget {
             ),
             FlatButton(
               onPressed: () {
-                onTaskAdded(
-                  Task(text: taskText),
-                );
+                onTaskAdded(taskText);
                 controller.clear();
               },
               child: Text("Add"),

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:todoey_flutter/models/data.dart';
 import 'package:todoey_flutter/widgets/task_list.dart';
 import 'add_task_screen.dart';
 
@@ -10,12 +12,6 @@ class TasksScreen extends StatefulWidget {
 }
 
 class _TasksScreenState extends State<TasksScreen> {
-  final List<Task> tasks = [
-    Task(text: "123", isDone: true),
-    Task(text: "456"),
-    Task(text: "789", isDone: true),
-  ];
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,10 +23,12 @@ class _TasksScreenState extends State<TasksScreen> {
           showModalBottomSheet(
               context: context,
               builder: (context) => AddTaskScreen(
-                    onTaskAdded: (task) {
+                    onTaskAdded: (taskTitle) {
                       setState(() {
-                        tasks.add(task);
+                        Provider.of<Data>(context)
+                            .addTasks(Task(text: taskTitle));
                       });
+                      Navigator.pop(context);
                     },
                   ));
         },
@@ -69,12 +67,19 @@ class _TasksScreenState extends State<TasksScreen> {
                   ),
                 ),
                 Text(
-                  '12 Tasks',
+                  '${Provider.of<Data>(context).tasks.length} Tasks',
                   style: TextStyle(
                     fontSize: 18.0,
                     color: Colors.white,
                   ),
-                )
+                ),
+                Text(
+                  '${Provider.of<Data>(context).getCompletedCount()}/${Provider.of<Data>(context).tasks.length} Completed',
+                  style: TextStyle(
+                    fontSize: 12.0,
+                    color: Colors.white,
+                  ),
+                ),
               ],
             ),
           ),
@@ -89,10 +94,9 @@ class _TasksScreenState extends State<TasksScreen> {
                 ),
               ),
               child: TaskList(
-                tasks: tasks,
                 onTaskToggle: (index) {
                   setState(() {
-                    tasks[index].toggleDone();
+                    Provider.of<Data>(context).tasks[index].toggleDone();
                   });
                 },
               ),
