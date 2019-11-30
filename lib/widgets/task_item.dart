@@ -1,25 +1,33 @@
 import 'package:flutter/material.dart';
-import 'package:todoey_flutter/models/task.dart';
 
 class TaskItem extends StatelessWidget {
-  const TaskItem({Key key, this.task, this.onCheckboxToggle}) : super(key: key);
+  const TaskItem(
+      {Key key,
+      this.title,
+      this.isChecked,
+      this.onCheckboxToggle,
+      this.onLongPress})
+      : super(key: key);
 
-  final Task task;
+  final String title;
+  final bool isChecked;
   final Function onCheckboxToggle;
+  final Function onLongPress;
 
   @override
   Widget build(BuildContext context) {
     return ListTile(
       title: Text(
-        task.text,
+        title,
         style: TextStyle(
-          decoration: task.isDone ? TextDecoration.lineThrough : null,
+          decoration: isChecked ? TextDecoration.lineThrough : null,
         ),
       ),
       trailing: Checkbox(
-        value: task.isDone,
+        value: isChecked,
         onChanged: onCheckboxToggle,
       ),
+      onLongPress: onLongPress,
     );
   }
 }

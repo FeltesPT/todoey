@@ -5,9 +5,8 @@ import 'package:todoey_flutter/models/task.dart';
 
 class Data extends ChangeNotifier {
   List<Task> _tasks = [
-    Task(text: "123", isDone: true),
-    Task(text: "456"),
-    Task(text: "789"),
+    Task(text: "Your first task", isDone: true),
+    Task(text: "Your second task"),
   ];
 
   UnmodifiableListView<Task> get tasks => UnmodifiableListView(_tasks);
@@ -24,11 +23,6 @@ class Data extends ChangeNotifier {
     return _tasks.where((i) => !i.isDone).length;
   }
 
-  void addTask(Task newTask) {
-    _tasks.add(newTask);
-    notifyListeners();
-  }
-
   void addTaskWith({String title, bool done = false}) {
     _tasks.add(Task(text: title, isDone: done));
     notifyListeners();
@@ -39,8 +33,8 @@ class Data extends ChangeNotifier {
     notifyListeners();
   }
 
-  void deleteTask(int index) {
-    _tasks.removeAt(index);
+  void delete(Task task) {
+    _tasks.remove(task);
     notifyListeners();
   }
 }
